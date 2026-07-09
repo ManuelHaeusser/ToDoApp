@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Kategorie bearbeiten')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: navbar('categories')}"></nav>
+
+<main class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <h1 class="h3 mb-4"
+                th:text="${editMode} ? 'Kategorie bearbeiten' : 'Neue Kategorie'">Kategorie</h1>
+
+            <form th:object="${categoryForm}" method="post"
+                  th:action="${editMode}
+                              ? @{/categories/{id}(id=${categoryForm.id})}
+                              : @{/categories}">
+
+                <div class="mb-3">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" id="name" class="form-control" th:field="*{name}"
+                           th:classappend="${#fields.hasErrors('name')} ? 'is-invalid'">
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('name')}"
+                         th:errors="*{name}">Fehler</div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="color" class="form-label">Farbe</label>
+                    <input type="color" id="color" class="form-control form-control-color"
+                           th:field="*{color}"
+                           th:classappend="${#fields.hasErrors('color')} ? 'is-invalid'">
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('color')}"
+                         th:errors="*{color}">Fehler</div>
+                </div>
+
+                <div class="mb-4">
+                    <label for="description" class="form-label">Beschreibung</label>
+                    <textarea id="description" class="form-control" rows="3"
+                              th:field="*{description}"
+                              th:classappend="${#fields.hasErrors('description')}
+                                              ? 'is-invalid'"></textarea>
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('description')}"
+                         th:errors="*{description}">Fehler</div>
+                </div>
+
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-primary">Speichern</button>
+                    <a th:href="@{/categories}" class="btn btn-outline-secondary">Abbrechen</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

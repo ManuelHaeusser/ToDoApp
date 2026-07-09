@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Kategorien')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: navbar('categories')}"></nav>
+
+<main class="container">
+    <div th:replace="~{fragments/layout :: messages}"></div>
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1 class="h3 mb-0">Kategorien</h1>
+        <a th:href="@{/categories/new}" class="btn btn-primary">+ Neue Kategorie</a>
+    </div>
+
+    <div th:if="${#lists.isEmpty(categories)}" class="text-center text-muted py-5">
+        <p class="mb-2">Keine Kategorien vorhanden.</p>
+        <a th:href="@{/categories/new}" class="btn btn-outline-primary btn-sm">
+            Erste Kategorie anlegen</a>
+    </div>
+
+    <div class="table-responsive" th:unless="${#lists.isEmpty(categories)}">
+        <table class="table table-hover align-middle">
+            <thead>
+            <tr>
+                <th scope="col" style="width: 3rem;">Farbe</th>
+                <th scope="col">Name</th>
+                <th scope="col">Beschreibung</th>
+                <th scope="col" class="text-end">Aktionen</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="category : ${categories}">
+                <td>
+                    <span class="color-swatch"
+                          th:style="'background-color:' + ${category.color}"></span>
+                </td>
+                <td th:text="${category.name}">Name</td>
+                <td class="text-muted" th:text="${category.description}">Beschreibung</td>
+                <td class="text-end">
+                    <a th:href="@{/categories/{id}/edit(id=${category.id})}"
+                       class="btn btn-sm btn-outline-secondary">Bearbeiten</a>
+                    <form th:action="@{/categories/{id}/delete(id=${category.id})}" method="post"
+                          class="d-inline"
+                          onsubmit="return confirm('Kategorie und alle zugehörigen Aufgaben löschen?');">
+                        <button type="submit" class="btn btn-sm btn-outline-danger">Löschen</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
