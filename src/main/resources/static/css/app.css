@@ -1,0 +1,27 @@
+/* Kleiner farbiger Punkt zur Kennzeichnung der Kategorie */
+.cat-dot {
+    display: inline-block;
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 50%;
+    flex: 0 0 auto;
+}
+
+/* Farbige Vorschau im Kategorieformular */
+.color-swatch {
+    display: inline-block;
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 0.25rem;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    vertical-align: middle;
+}
+
+.task-done {
+    text-decoration: line-through;
+    color: var(--bs-secondary-color);
+}
+
+main {
+    padding-bottom: 3rem;
+}
